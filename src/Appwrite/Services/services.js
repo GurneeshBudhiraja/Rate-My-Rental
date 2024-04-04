@@ -1,5 +1,4 @@
 import auth from "./Auth";
-import database from "./Database";
-import bucket from "./Bucket";
+import contact from "./ContactUs";
 
-export {auth,database,bucket};
+export {auth,contact};

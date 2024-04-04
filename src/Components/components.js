@@ -6,5 +6,4 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Logout from "./Logout/Logout";
 import Hamburger from "./Hamburger/Hamburger";
-import Carousel from "./Carousel/Carousel";
-export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger, Carousel};
+export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger};

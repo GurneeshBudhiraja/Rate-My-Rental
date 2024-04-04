@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { Logo, Input } from "../components";
+import React, { useState } from "react";
+import { Input } from "../components";
 import { useForm } from "react-hook-form";
 import { auth } from "../../Appwrite/Services/services";
-import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../../Store/AuthSlice/AuthSlice";
 import { useNavigate } from "react-router-dom";
 import { Vortex } from "react-loader-spinner";
-import { Client, Account, ID } from "appwrite";
-import keys from "../../keys/keys.js";
+
 
 function Signup() {
-  const dispatch = useDispatch();
-  const info = useSelector((state) => state.auth);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [error, setError] = useState(null);

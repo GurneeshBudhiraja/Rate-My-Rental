@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button,Carousel} from "../Components/components"
+import {Button} from "../Components/components"
 import HomeMission from './HomeMission'
 import {auth} from '../Appwrite/Services/services'
 import {useDispatch} from 'react-redux'
@@ -20,9 +20,9 @@ function Home() {
         const user = await auth.currentUser();
         const {name:userName,email:userEmail} = user;
         dispatch(setUser({userName,userEmail}));
-        console.log(user);
+        // console.log(user);
       } catch (error) {
-        console.log(error);
+        // console.log(error);
         dispatch(logoutUser());
       }
     }

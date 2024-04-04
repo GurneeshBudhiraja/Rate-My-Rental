@@ -8,7 +8,9 @@ function Layout() {
     <Provider store={store}>
       <div className='flex flex-col justify-between'>
         <Header/>
+        <div className='bg-[#0a0a0a]'>
         <Outlet />        
+        </div>
         <Footer />
       </div>
     </Provider>

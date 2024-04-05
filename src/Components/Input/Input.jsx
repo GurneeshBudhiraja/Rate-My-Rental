@@ -8,7 +8,7 @@ const Input = ({placeholder,label,labelClassname="",type,className="",register=u
     label,
     type,
     className:`${className}`,
-    ...(register?register(name,extraFormFeatures):{}),
+    ...(register?register(name,extraFormFeatures?extraFormFeatures:null):{}),
     ...props
   }
   return (

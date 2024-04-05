@@ -11,8 +11,7 @@ function CheckReview() {
     const loadReview = async () => {      
       try {
         const addressValue = hello.addressValue.toLowerCase();
-        console.log(addressValue);
-        const resp = await review.getReview(addressValue);
+        const resp = await review.getReviews();
         console.log(resp.documents);
       } catch (error) {
         console.log(error);
@@ -22,7 +21,11 @@ function CheckReview() {
   }, []);
 
 
-  return <div className="text-white">{hello.addressValue.toLowerCase()}</div>;
+  return (
+    <div className="text-white h-screen">
+      {hello.addressValue.toLowerCase()}
+    </div>
+  )
 }
 
 export default CheckReview;

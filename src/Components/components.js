@@ -6,4 +6,6 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Logout from "./Logout/Logout";
 import Hamburger from "./Hamburger/Hamburger";
-export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger};
+import Rating from "./Rating/Rating";
+import ReviewDiv from "./ReviewDiv/ReviewDiv";
+export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger, Rating, ReviewDiv};

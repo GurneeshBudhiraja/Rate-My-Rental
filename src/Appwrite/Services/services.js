@@ -1,5 +1,5 @@
 import auth from "./Auth";
 import contact from "./ContactUs";
 import review from "./Review";
-
-export {auth,contact,review};
+import storage from "./Bucket";
+export {auth,contact,review, storage};

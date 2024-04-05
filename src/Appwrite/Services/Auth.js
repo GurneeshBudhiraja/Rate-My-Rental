@@ -18,7 +18,7 @@ class Auth {
         }
     }
     login = ({email, password})=>{
-        return this.account.createEmailPasswordSession(email, password);
+        return this.account.createEmailSession(email, password);
     }
     currentUser = ()=>{
         return this.account.get();

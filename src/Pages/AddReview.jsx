@@ -25,7 +25,7 @@ function AddReview() {
         value={input}
         onChange={(e) => setInput(e.target.value)}
       />
-      <label htmlFor="rent">Monthly Rent (optional)</label>
+      <label htmlFor="rent">Monthly Rent - <i className="italic text-sm">Optional</i></label>
       <input
         id="rent"
         placeholder="Monthly Rent"
@@ -40,7 +40,7 @@ function AddReview() {
       <Div labelName="Amenities" />
       <Div labelName="Owner" />
       {/* <div className="border-2 bg-[#0a0a0a] w-full p-2 rounded-md border-theme" > */}
-        <label htmlFor="comments">Anything else?</label>
+        <label htmlFor="comments">Anything else? - <i className="italic text-sm">Optional</i></label>
         <textarea
           name="comments"
           id="comments"

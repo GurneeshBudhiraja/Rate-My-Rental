@@ -2,13 +2,17 @@ import React from 'react'
 import {Button, Input} from "../Components/components"
 import HomeMission from './HomeMission'
 import {auth} from '../Appwrite/Services/services'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector } from 'react-redux'
 import {setUser,logoutUser } from '../Store/AuthSlice/AuthSlice'
-import {Link} from 'react-router-dom'
+import {setSearchAddress,clearSearchAddress} from "../Store/AddressSlice/AddressSlice"
+import {Link, useNavigate } from 'react-router-dom'
+
 
 function Home() {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [addressValue,setAddressValue ] = React.useState("34 Keon Place");
+  const address = useSelector((state)=>state.address); 
   // Scroll to top function
   const top=()=>{
     window.scrollTo({
@@ -16,6 +20,18 @@ function Home() {
       behavior:"smooth"
     })  
   }
+  
+  const addStoreAdress = () => {
+    try {
+      dispatch(clearSearchAddress());
+      addressValue && dispatch(setSearchAddress(addressValue.trim().toLowerCase()));
+      navigate(`/reviews/${addressValue}`);
+    } catch (error) {
+      console.log(error);
+      navigate("/");  
+    }
+  }
+
   React.useEffect(()=>{
     const retrieveUser = async()=>{
       try {
@@ -47,9 +63,7 @@ function Home() {
           </div>
           <div className='flex flex-col tracking-wide gap-3 items-center'>
             {/* Button Component */}
-            <Link to={`reviews/${addressValue}`}>  
-            <Button children="Search for Review" className='appearance-none bg-sky-400 px-2 py-1 rounded-full' />
-            </Link>
+            <Button children="Search for Review" className='appearance-none bg-sky-400 px-2 py-1 rounded-full' onClick={addStoreAdress} />
             <Link to={"addreview"} >
               <Button children="Add a Review" className='bg-sky-400 px-2 py-1 rounded-full'/>
             </Link>

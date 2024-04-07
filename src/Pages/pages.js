@@ -4,6 +4,7 @@ import Home from "./Home";
 import SignUpPage from "./SignUpPage";
 import AboutUs from "./AboutUs";
 import ContactUs from "./ContactUs";
-import CheckReview from "./CheckReview";
+import ShowReviews from "./ShowReviews";
 import AddReview from "./AddReview";
-export {Header, Footer, Home, SignUpPage,AboutUs,ContactUs,CheckReview, AddReview}
+import MyReviews from "./MyReviews";
+export {Header, Footer, Home, SignUpPage,AboutUs,ContactUs,ShowReviews, AddReview, MyReviews}

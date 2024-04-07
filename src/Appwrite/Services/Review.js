@@ -11,17 +11,12 @@ class Review {
     this.databases = new Databases(this.client);
   }
   // Get all reviews
-  getReviews(addressValue=null) {
-    console.log(addressValue);
+  getReviews(queryArray=null) {
     return this.databases.listDocuments(
       keys.appwriteDatabaseId,
       keys.appwriteCollectionId,
-      addressValue && 
-      [
-        Query.equal("address", addressValue),
-        Query.orderDesc("$createdAt")
-        
-      ]
+      queryArray && 
+      JSON.parse(queryArray)
     );
   }
   // Create a new review

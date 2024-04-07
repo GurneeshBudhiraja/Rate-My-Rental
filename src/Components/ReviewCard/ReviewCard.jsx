@@ -5,12 +5,15 @@ function ReviewCard({
   neighbourhood,
   ammenities,
   owner,
+  address=null,
   comments = "Not Provided",
   rent = "Not Provided",
+  trash = false,
+  onClick=null,
 }) {
   return (
     <>
-      <div className="flex border rounded-md border-theme p-2 gap-2 items-center bg-[#0a0a0a] ">
+      <div className={`flex border rounded-md border-theme ${trash?"pb-6 p-2":"p-2"} gap-2 items-center bg-[#0a0a0a] relative`}>
         <div className="border-2 border-theme rounded-lg mx-1 min-w-20 w-20 h-full">
           {image ? (
             <img
@@ -53,6 +56,13 @@ function ReviewCard({
             </span>{" "}
             {comments}
           </p>
+          {
+            trash && (
+              <div className="absolute right-3 bottom-1" onClick={onClick} >
+                <i className="fa-solid fa-trash-alt text-gray-300 cursor-pointer"></i>
+              </div>
+            ) 
+          }
         </div>
       </div>
     </>

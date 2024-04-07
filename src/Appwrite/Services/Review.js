@@ -18,7 +18,9 @@ class Review {
       keys.appwriteCollectionId,
       addressValue && 
       [
-        Query.equal("address", addressValue)
+        Query.equal("address", addressValue),
+        Query.orderDesc("$createdAt")
+        
       ]
     );
   }

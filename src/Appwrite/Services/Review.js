@@ -29,7 +29,7 @@ class Review {
     );
   }
   // Delete a review
-  deleteReview({ documentId }) {
+  deleteReview(documentId ) {
     return this.databases.deleteDocument(
       keys.appwriteDatabaseId,
       keys.appwriteCollectionId,

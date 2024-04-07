@@ -7,7 +7,7 @@ import { Vortex } from "react-loader-spinner";
 function ContactUs() {
   // textarea state
   const [text, setText] = React.useState("");
-  const { register, handleSubmit, setFocus } = useForm();
+  const { register, handleSubmit, setFocus, reset } = useForm();
   const [loading, setLoading] = React.useState(false);
   React.useEffect(() => {
     setFocus("name");
@@ -20,7 +20,7 @@ function ContactUs() {
     setSuccess(null);
     try {
       const formData = JSON.stringify({ ...data, comment: text });
-      console.log(  (formData));
+      
       const resp = await contact.submitContact(formData);
       if (JSON.stringify(resp) === "{}") {
         setError("An error occurred. Please try again later.");
@@ -33,6 +33,8 @@ function ContactUs() {
       setError(error.message);
     } finally {
       setLoading(false);
+      reset();
+      setText("");
     }
   };
 
@@ -90,6 +92,7 @@ function ContactUs() {
               id="comments"
               className="outline-none font-normal border-2 border-[#0a0a0a] bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc]"
               cols="10"
+              placeholder="Type here..."
               maxLength="250"
               rows="5"
               required

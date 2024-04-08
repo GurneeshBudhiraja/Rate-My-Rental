@@ -7,4 +7,5 @@ import ContactUs from "./ContactUs";
 import ShowReviews from "./ShowReviews";
 import AddReview from "./AddReview";
 import MyReviews from "./MyReviews";
-export {Header, Footer, Home, SignUpPage,AboutUs,ContactUs,ShowReviews, AddReview, MyReviews}
+import NotFound from "./NotFound";
+export {Header, Footer, Home, SignUpPage,AboutUs,ContactUs,ShowReviews, AddReview, MyReviews, NotFound}

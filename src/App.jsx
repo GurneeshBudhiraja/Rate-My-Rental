@@ -13,6 +13,7 @@ import {
   ShowReviews,
   AddReview,
   MyReviews,
+  NotFound,
 } from "./Pages/pages.js";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/reviews/:addressValue" element={<ShowReviews />} />
           <Route path="addreview" element={<AddReview />} />
           <Route path="/myreviews" element={<MyReviews />} />
+          <Route path="*" element={<NotFound />}/>
         </Route>
       </Routes>
     </BrowserRouter>

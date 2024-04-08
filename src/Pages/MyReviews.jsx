@@ -7,6 +7,7 @@ import notFound from "../assets/notFound.svg";
 import Skeleton from "@mui/material/Skeleton";
 import Box from "@mui/material/Box";
 import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
 import { ReviewCard } from "../Components/components.js";
 
 function MyReviews() {
@@ -33,8 +34,7 @@ function MyReviews() {
         const { documents } = await review.getReviews(queryArray);
         setReviewArray(documents);
       } catch (error) {
-        console.log(error.message);
-        setError("An error occurred. Please try again later.");
+        setError(`Delete failed: ${error.message}`);
       } finally {
         setLoading(false);
       }
@@ -51,29 +51,28 @@ function MyReviews() {
       setError(null);
       setLoading(true);
       // delete the review from the database
-      await review.deleteReview(documentId);
-      setOpen(true);
+      // await review.deleteReview(documentId);
       // remove the review from the state
       setReviewArray((state) =>
         state.filter((eachReview) => eachReview["$id"] !== documentId)
       );
-      // adding snackbar
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        message="Note archived"
-      />;
+      setOpen(true);
     } catch (error) {
       console.log(error.message);
       setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
+    }
+  };
+  const hideSnackBar = (event, reason) => {
+    if (reason === "timeout") {
       setOpen(false);
+      return;
     }
   };
 
   return (
-    <div className="text-white bg-[#0a0a0a] min-h-screen px-5 pt-4 max-w-prose mx-auto relative">
+    <div className="text-white bg-[#0a0a0a] min-h-screen px-5 pt-4 max-w-prose mx-auto relative mb-2 ">
       <p className="text-3xl text-center mb-4 font-bold tracking-wider ">
         My Reviews
       </p>
@@ -95,6 +94,7 @@ function MyReviews() {
           {Array.from(Array(3)).map((_, index) => (
             <Skeleton
               variant="rounded"
+              key={index}
               sx={{
                 bgcolor: "grey.900",
                 width: "auto",
@@ -110,6 +110,8 @@ function MyReviews() {
             reviewArray.map((eachReview) => (
               <ReviewCard
                 neighbourhood={eachReview.neighbourhood}
+                address={eachReview.address}
+                dateOfReview={eachReview["$createdAt"]}
                 key={eachReview["$id"]}
                 ammenities={eachReview.ammenities}
                 owner={eachReview.owner}
@@ -126,6 +128,16 @@ function MyReviews() {
           )}
         </div>
       )}
+      <Snackbar
+        open={open}
+        autoHideDuration={2500}
+        onClose={hideSnackBar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert severity="success" variant="filled" onClose={()=>{setOpen(false)}} sx={{ width: "100%" }}>
+          Review deleted successfully!
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

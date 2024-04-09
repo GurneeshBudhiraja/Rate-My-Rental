@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../Components/components";
+import { Input,SubmitButton} from "../Components/components";
 import { useForm } from "react-hook-form";
 import { contact } from "../Appwrite/Services/services";
 import { Vortex } from "react-loader-spinner";
@@ -99,16 +99,7 @@ function ContactUs() {
               value={text}
               onChange={(e) => setText(e.target.value)}
             ></textarea>
-            {loading ? (
-              <div className="bg-[#2a6dff] text-white w-full p-0 rounded-md mt-2 flex justify-center">
-                <Vortex visible={loading} height="40" width="40" colors={[]} />
-              </div>
-            ) : (
-              <Input
-                type="submit"
-                className="bg-[#2a6dff] text-white w-full p-2 rounded-md mt-2"
-              />
-            )}
+            <SubmitButton loading={loading}/>
             
           </form>
         </div>

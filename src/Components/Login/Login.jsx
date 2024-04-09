@@ -1,5 +1,5 @@
 import React from "react";
-import { Input } from "../components";
+import { Input, SubmitButton } from "../components";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../Appwrite/Services/services";
 import { useDispatch } from "react-redux";
@@ -77,7 +77,7 @@ function Login() {
               placeholder="Password"
               labelClassname="text-white"
               label="Password"
-              className="outline-none border-[#0a0a0a] border-2 bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc]"
+              className="outline-none border-[#0a0a0a] border-2 bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc] mb-2"
               type="password"
               name="password"
               register={register}
@@ -85,16 +85,8 @@ function Login() {
                 required: true,
               }}
             />
-             {loading ? (
-              <div className="bg-[#2a6dff] text-white w-full p-0 rounded-md mt-2 flex justify-center">
-                <Vortex visible={loading} height="40" width="40" colors={[]} />
-              </div>
-            ) : (
-              <Input
-                type="submit"
-                className="bg-[#2a6dff] text-white w-full p-2 rounded-md mt-2"
-              />
-            )}
+
+            <SubmitButton loading={loading}/>
           </form>
           <p className="text-white text-center mt-4">
             Don't have an account?{" "}

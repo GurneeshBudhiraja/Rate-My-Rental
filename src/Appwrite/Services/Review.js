@@ -20,11 +20,11 @@ class Review {
     );
   }
   // Create a new review
-  createReview(data) {
+  createReview(ID,data) {
     return this.databases.createDocument(
       keys.appwriteDatabaseId,
       keys.appwriteCollectionId,
-      ID.unique(),
+      ID,
       JSON.stringify(data)
     );
   }

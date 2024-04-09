@@ -3,7 +3,6 @@ import { Button } from "../Components/components";
 import HomeMission from "./HomeMission";
 import PlacesAutocomplete, {
   geocodeByAddress,
-  getLatLng,
 } from "react-places-autocomplete";
 
 import { auth } from "../Appwrite/Services/services";
@@ -41,7 +40,7 @@ function Home() {
       }
       addressValue &&
         dispatch(setSearchAddress(addressValue.trim().toLowerCase()));
-        navigate(`/reviews/${addressValue}`);
+      navigate(`/reviews/${addressValue}`);
     } catch (error) {
       console.log(error);
       navigate("/");
@@ -54,6 +53,7 @@ function Home() {
         const user = await auth.currentUser();
         const { name: userName, email: userEmail } = user;
         dispatch(setUser({ userName, userEmail }));
+        document.querySelector("#addressInput").focus();
       } catch (error) {
         dispatch(logoutUser());
       }
@@ -93,7 +93,7 @@ function Home() {
                     <input
                       {...getInputProps({
                         placeholder: "Enter full address...",
-                        className: `outline-none w-full tracking-wide rounded-md border font-semibold ${
+                        className: `outline-none w-full tracking-wide rounded-md border font-semibold border-2 ${
                           error
                             ? "border-rose-500 caret-rose-500"
                             : "border-[#0a0a0a] "
@@ -107,13 +107,12 @@ function Home() {
                       {hasSuggestions && suggestions.length > 0 && (
                         <div className=" border border-gray-300 rounded-md shadow-md mt-2 overflow-auto h-[25vh] bg-[#000] ">
                           {suggestions.map((suggestion) => {
-                            
                             const style = {
                               backgroundColor: suggestion.active
                                 ? "#4071d0"
                                 : "#0a0a0a",
                               color: "white",
-                              border: "1px solid #4071d0",                       
+                              border: "1px solid #4071d0",
                             };
 
                             return (
@@ -146,7 +145,7 @@ function Home() {
                 <Button
                   children="Add a Review"
                   className="bg-gray-950/70 focus:outline-none text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
-                  />
+                />
               </Link>
             </div>
           </div>

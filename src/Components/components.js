@@ -6,7 +6,7 @@ import Login from "./Login/Login";
 import Signup from "./Signup/Signup";
 import Logout from "./Logout/Logout";
 import Hamburger from "./Hamburger/Hamburger";
-import Rating from "./Rating/Rating";
-import ReviewDiv from "./ReviewDiv/ReviewDiv";
 import ReviewCard from "./ReviewCard/ReviewCard";
-export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger, Rating, ReviewDiv, ReviewCard,};
+import SubmitButton from "./SubmitButton/SubmitButton";
+
+export {Layout, Input, Button, Logo, Login, Signup, Logout, Hamburger,ReviewCard,SubmitButton,};

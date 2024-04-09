@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Input } from "../components";
+import { Input, SubmitButton } from "../components";
 import { useForm } from "react-hook-form";
 import { auth } from "../../Appwrite/Services/services";
 import { useNavigate } from "react-router-dom";
@@ -75,7 +75,7 @@ function Signup() {
             <Input
               placeholder="Password"
               label="Password"
-              className="outline-none border-[#0a0a0a] border-2 bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc]"
+              className="outline-none border-[#0a0a0a] border-2 bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc] mb-2"
               labelClassname="text-white"
               type="password"
               register={register}
@@ -86,16 +86,7 @@ function Signup() {
                 maxLength: 20,
               }}
             />
-            {loading ? (
-              <div className="bg-[#2a6dff] text-white w-full p-0 rounded-md mt-2 flex justify-center">
-                <Vortex visible={loading} height="40" width="40" colors={[]} />
-              </div>
-            ) : (
-              <Input
-                type="submit"
-                className="bg-[#2a6dff] text-white w-full p-2 rounded-md mt-2"
-              />
-            )}
+            <SubmitButton loading={loading} />
           </form>
           <p className="text-white text-center my-2 ">
             Already have an account?

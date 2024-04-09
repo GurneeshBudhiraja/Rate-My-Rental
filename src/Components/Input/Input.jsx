@@ -1,6 +1,6 @@
 import React, {useId} from 'react'
 
-const Input = ({placeholder,label,labelClassname="",type,className="",register=undefined,name,extraFormFeatures=undefined,...props}) => {
+const Input = ({placeholder=null,label=null,labelClassname="",type,className="",register=undefined,name,extraFormFeatures=undefined,...props}) => {
   const id= useId();
   const inputProps={
     placeholder,

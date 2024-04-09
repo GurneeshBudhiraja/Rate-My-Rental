@@ -49,7 +49,7 @@ function ShowReviews() {
   }, []);
 
   return (
-    <div className="text-white bg-[#0a0a0a] min-h-screen px-5 pt-4 max-w-prose mx-auto relative">
+    <div className="text-white bg-[#0a0a0a] min-h-screen px-5 mb-8 pt-4 max-w-prose mx-auto relative">
       <p className="text-3xl text-center mb-4 font-bold tracking-wider ">
         Reviews
       </p>

@@ -35,7 +35,7 @@ function ReviewCard({
       </div>
       <div className="overflow-x-auto ">
         {address && (
-          <p className="">
+          <p className="capitalize">
             <span className="text-theme font-bold tracking-wide">Address:</span>{" "}
             {address}
           </p>

@@ -43,19 +43,19 @@ function MyReviews() {
     return () => {
       setReviewArray([]);
     };
-  }, [setReviewArray]);
+  }, []);
 
   // delete review function
   const deleteReview = async (documentId) => {
     try {
       setError(null);
       setLoading(true);
-      // delete the review from the database
-      // await review.deleteReview(documentId);
       // remove the review from the state
       setReviewArray((state) =>
-        state.filter((eachReview) => eachReview["$id"] !== documentId)
-      );
+      state.filter((eachReview) => eachReview["$id"] !== documentId)
+    );
+    // delete the review from the database
+      await review.deleteReview(documentId);
       setOpen(true);
     } catch (error) {
       console.log(error.message);
@@ -64,7 +64,7 @@ function MyReviews() {
       setLoading(false);
     }
   };
-  const hideSnackBar = (event, reason) => {
+  const hideSnackBar = (_, reason) => {
     if (reason === "timeout") {
       setOpen(false);
       return;

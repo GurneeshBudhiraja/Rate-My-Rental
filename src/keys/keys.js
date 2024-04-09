@@ -4,7 +4,8 @@ const keys = {
   appwriteDatabaseId:String(import.meta.env.VITE_APPWRITE_DATABASE_ID),
   appwriteCollectionId:String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
   appwriteBucketId:String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
-  appwriteContactCollectionId:String(import.meta.env.VITE_APPWRITE_CONTACT_COLLECTION_ID)
+  appwriteContactCollectionId:String(import.meta.env.VITE_APPWRITE_CONTACT_COLLECTION_ID),
+  googleMapsApiKey:String(import.meta.env.VITE_GOOGLE_MAPS_API_KEY),
 };
 
 export default keys;

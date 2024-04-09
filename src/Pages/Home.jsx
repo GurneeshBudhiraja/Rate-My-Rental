@@ -1,6 +1,11 @@
 import React from "react";
-import { Button, Input } from "../Components/components";
+import { Button } from "../Components/components";
 import HomeMission from "./HomeMission";
+import PlacesAutocomplete, {
+  geocodeByAddress,
+  getLatLng,
+} from "react-places-autocomplete";
+
 import { auth } from "../Appwrite/Services/services";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, logoutUser } from "../Store/AuthSlice/AuthSlice";
@@ -13,6 +18,7 @@ import { Link, useNavigate } from "react-router-dom";
 function Home() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [hasSuggestions, setHasSuggestions] = React.useState(false);
   const [addressValue, setAddressValue] = React.useState("");
   const [error, setError] = React.useState("");
   const address = useSelector((state) => state.address);
@@ -28,14 +34,14 @@ function Home() {
     try {
       setError(false);
       dispatch(clearSearchAddress());
-      if(!addressValue.trim()){
+      if (!addressValue.trim()) {
         setError("Enter a valid address");
         document.getElementById("addressInput").focus();
         return;
       }
       addressValue &&
         dispatch(setSearchAddress(addressValue.trim().toLowerCase()));
-      navigate(`/reviews/${addressValue}`);
+        navigate(`/reviews/${addressValue}`);
     } catch (error) {
       console.log(error);
       navigate("/");
@@ -55,10 +61,15 @@ function Home() {
     retrieveUser();
   }, []);
 
+  const handleSelect = async (value) => {
+    const results = await geocodeByAddress(value);
+    setAddressValue(results[0]["formatted_address"]);
+  };
+
   return (
     <div className="bg-black">
-      <div className='bg-[url("./pictures/bg-house.webp")] h-[75vh] overflow-x-scroll bg-cover bg-repeat bg-center tracking-wider flex justify-center items-center'>
-        <div className="flex flex-col justify-center items-center px-4 h-fit bg-black bg-opacity-30 py-5">
+      <div className='bg-[url("./pictures/bg-house.webp")] h-[75vh] overflow-x-scroll bg-cover bg-repeat bg-center tracking-wider flex justify-center items-center brightness-90 '>
+        <div className="flex flex-col justify-center items-center px-4 h-fit bg-black/45  backdrop-blur-lg py-5 backdrop-brightness-105 rounded-xl ">
           <div className="flex flex-col items-center gap-5 max-w-prose mx-auto">
             <h4 className="font-bold text-4xl text-black">
               Rate My <span className="font-semibold text-white">Rental</span>
@@ -66,31 +77,76 @@ function Home() {
             <p className="text-gray-100 font-semibold tracking-widest ">
               Know before you rent
             </p>
-            <div className="flex flex-col items-center w-full">
-              {error && <span className="text-red-700  text-shadow-lg px-2 py-2 bg-white/5 backdrop-blur-3xl font-extrabold text-lg mb-2">{error}</span>}
-              <input
-                id="addressInput"
-                type="text"
-                autoFocus
-                className={`outline-none w-full tracking-wide rounded-md border-2 font-semibold ${error?"border-rose-500":"border-[#0a0a0a]"} bg-gray-100 px-2 py-2 `}
-                placeholder="Enter your full address..."
+            <div className="flex flex-col w-full">
+              <PlacesAutocomplete
                 value={addressValue}
-                onChange={(e) => setAddressValue(e.currentTarget.value)}
-                required
-              />
+                onChange={setAddressValue}
+                onSelect={handleSelect}
+              >
+                {({
+                  getInputProps,
+                  suggestions,
+                  getSuggestionItemProps,
+                  loading,
+                }) => (
+                  <div className="relative">
+                    <input
+                      {...getInputProps({
+                        placeholder: "Enter full address...",
+                        className: `outline-none w-full tracking-wide rounded-md border font-semibold ${
+                          error
+                            ? "border-rose-500 caret-rose-500"
+                            : "border-[#0a0a0a] "
+                        } bg-gray-100 px-2 py-2`,
+                        id: "addressInput",
+                        onFocus: () => setHasSuggestions(true),
+                      })}
+                    />
+
+                    <div className="absolute left-0 w-full z-10">
+                      {hasSuggestions && suggestions.length > 0 && (
+                        <div className=" border border-gray-300 rounded-md shadow-md mt-2 overflow-auto h-[25vh] bg-[#000] ">
+                          {suggestions.map((suggestion) => {
+                            
+                            const style = {
+                              backgroundColor: suggestion.active
+                                ? "#4071d0"
+                                : "#0a0a0a",
+                              color: "white",
+                              border: "1px solid #4071d0",                       
+                            };
+
+                            return (
+                              <div
+                                {...getSuggestionItemProps(suggestion, {
+                                  style,
+                                })}
+                                className="px-4 py-2 cursor-pointer hover:bg-gray-100"
+                              >
+                                {suggestion.description}
+                              </div>
+                            );
+                          })}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+              </PlacesAutocomplete>
+              {error && <span className="text-red-500 text-sm ">{error}</span>}
             </div>
-            <div className="flex flex-col tracking-wide gap-3 items-center">
+            <div className="flex flex-col justify-center tracking-wide gap-3 items-center">
               {/* Button Component */}
               <Button
                 children="Search for Review"
-                className="appearance-none bg-sky-400 px-2 py-1 rounded-full"
+                className="bg-gray-950/70 text-center text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
                 onClick={addStoreAdress}
               />
               <Link to={"addreview"}>
                 <Button
                   children="Add a Review"
-                  className="bg-sky-400 px-2 py-1 rounded-full"
-                />
+                  className="bg-gray-950/70 focus:outline-none text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
+                  />
               </Link>
             </div>
           </div>

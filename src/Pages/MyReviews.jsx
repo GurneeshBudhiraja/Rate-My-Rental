@@ -17,14 +17,14 @@ function MyReviews() {
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [reviewArray, setReviewArray] = React.useState([]);
-
+  
   useEffect(() => {
     if (!user.isAuthenticated) {
       navigate("/login");
     }
     const fetchMyReviews = async () => {
       setLoading(true);
-      setError(null);
+      setError("");
       try {
         // custom query
         const queryArray = JSON.stringify([
@@ -76,12 +76,13 @@ function MyReviews() {
       return;
     }
   };
-
+ 
   return (
     <div className="text-white bg-[#0a0a0a] min-h-screen px-5 pt-4 max-w-prose mx-auto relative mb-2 ">
       <p className="text-3xl text-center mb-4 font-bold tracking-wider ">
         My Reviews
       </p>
+      {error && <p className="text-rose-500 text-center mb-3 font-semibold" >{error}</p>}
       {loading ? (
         <Box
           spacing={4}

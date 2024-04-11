@@ -19,6 +19,13 @@ class Review {
       JSON.parse(queryArray)
     );
   }
+  getReview(id) {
+    return this.databases.getDocument(
+      keys.appwriteDatabaseId,
+      keys.appwriteCollectionId,
+      id
+    );
+  }
   // Create a new review
   createReview(reviewID,data) {
     return this.databases.createDocument(

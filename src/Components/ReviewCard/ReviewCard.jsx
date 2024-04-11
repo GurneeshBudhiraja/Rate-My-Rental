@@ -13,6 +13,7 @@ function ReviewCard({
   rent = "Not Provided",
   trash = false,
   onClick = null,
+  onClickShowReview=null,
 }) {
   const [image, setImage] = React.useState(null);
   React.useEffect(() => {
@@ -30,7 +31,8 @@ function ReviewCard({
 
   return (
     <div
-      className={`flex border rounded-md border-theme ${
+    onClick={onClickShowReview}
+      className={`cursor-pointer flex border rounded-md border-theme ${
         trash || dateOfReview ? "pb-8 p-2" : "p-2"
       } gap-2 items-center bg-[#0a0a0a] relative`}
     >
@@ -38,8 +40,8 @@ function ReviewCard({
         {isImage ? (
           <img
             src={image}
-            alt="Rental image will come here"
-            className="min-w-20 min-h-20 w-20 h-20 p-2"
+            alt="Image Not Provided"
+            className="min-w-20 min-h-20 w-20 h-20 p-2 text-sm text-theme font-semibold"
           />
         ) : (
           <img

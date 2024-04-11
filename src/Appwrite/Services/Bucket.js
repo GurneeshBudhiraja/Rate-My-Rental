@@ -11,12 +11,15 @@ class Bucket {
   }
 
   addFile({ id, file }) {
-    console.log(file);
     return this.storage.createFile(keys.appwriteBucketId, id, file);
   }
     getFilePreview({fileId, width = 500, height = 500}){
       return this.storage.getFilePreview(keys.appwriteBucketId,fileId,height,width);
     }
+    getFileView(fileID){
+      return this.storage.getFileView(keys.appwriteBucketId,fileID)
+    }
+
     deleteFile(fileId){
       return this.storage.deleteFile(keys.appwriteBucketId,fileId);
     }

@@ -1,27 +1,39 @@
 import React from "react";
 import { Input, SubmitButton } from "../Components/components";
-import { review } from "../Appwrite/Services/services";
 import PlacesAutocomplete, {
   geocodeByAddress,
 } from "react-places-autocomplete";
 import { ErrorMessage } from "@hookform/error-message";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import {review,storage} from "../Appwrite/Services/services"
+import Snackbar from "@mui/material/Snackbar";
+import Alert from "@mui/material/Alert";
+import { nanoid } from '@reduxjs/toolkit'
+
 
 function AddReview() {
   const [loading, setLoading] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const [addressValue, setAddressValue] = React.useState("");
   const [error, setError] = React.useState(false);
-  const [submissionError, setSubmissionError] = React.useState(null);
+  const [submissionError, setSubmissionError] = React.useState("");
   const [hasSuggestions, setHasSuggestions] = React.useState(false);
+  const [addReviewState,setAddReviewState] = React.useState({
+    reviewID:nanoid(),
+    rentalImages:null,
+  });
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm();
+  // address from store
   const sliceAddress = useSelector((state) => state.address.searchAddress);
+  // user from store
+  const user = useSelector((state) => state.auth.userEmail);
   React.useEffect(() => {
-    console.log(sliceAddress);
     if (sliceAddress && sliceAddress.trim()) {
       setAddressValue(sliceAddress);
     }
@@ -35,36 +47,64 @@ function AddReview() {
     setAddressValue(results[0]["formatted_address"]);
   };
   // form submission
-  const submitForm = (data) => {
+  const submitForm=async (data)=>{
     try {
       setError(false);
       setSubmissionError(null);
       setLoading(true);
       // checking for address value
       if (addressValue.trim() === "") {
-        setError(true);
-        console.log(error);
+        setError("Address is required");
         document.getElementById("addressInput").focus();
         return;
       }
-      const modifiedAddress = addressValue.trim().toLowerCase();
-      setAddressValue(modifiedAddress);
-      const reviewObject = {
-        ...data,
-        address: addressValue,
+      let isImage = false;
+      // uploading images
+      if(addReviewState.rentalImages){
+        await storage.addFile({id:addReviewState.reviewID,file:addReviewState.rentalImages})
+        isImage = true;
       }
-      console.log(reviewObject);  
+      
+
+      const reviewObject = {
+        neighbourhood: data.neighbourhood,
+        isImage: isImage,
+        amenities: data.amenities,
+        owner: data.owner,
+        address: addressValue,
+        ...(data.rent && {rent: data.rent}),
+        ...(data.comments && {comments: data.comments}),
+        ...(user && {user: user}),
+      }
+      await review.createReview(addReviewState.reviewID,reviewObject);
+      setOpen(true);
     } catch (error) {
-      console.log(error);
-      setSubmissionError(true);
+      setSubmissionError(error.message);
     } finally {
       setLoading(false);
+      setAddressValue("");
+      reset();
+      setAddReviewState({
+        reviewID:nanoid(),
+        rentalImages:null,
+      });
+      
     }
   };
+  const hideSnackBar = (_, reason) => {
+    if (reason === "timeout") {
+      setOpen(false);
+      return;
+    }
+  };
+  
 
   return (
     <div className="flex flex-col min-h-screen  text-white mx-auto max-w-prose mt-4 gap-4 p-4 bg-[#0a0a0a] ">
       <h1 className="text-center font-bold text-2xl ">Add Review</h1>
+      {submissionError && (
+        <p className="text-rose-600 text-center font-semibold my-2" >{submissionError}</p>
+      )}
       <div className="flex flex-col w-full ">
         <PlacesAutocomplete
           value={addressValue}
@@ -140,7 +180,7 @@ function AddReview() {
                 required: false,
                 pattern: {
                   value: /^\d+$/,
-                  message: "No decimals allowed",
+                  message: "No characters/decimals allowed",
                 },
                 min: {
                   value: 0,
@@ -152,13 +192,12 @@ function AddReview() {
                 },
               }}
             />
-
             <ErrorMessage
               errors={errors}
               name="rent"
               render={({ message }) => {
                 return (
-                  <p className="text-red-500 text-sm ">&#x1F6C8;{message}</p>
+                  <p className="text-red-500 text-sm ">{message}</p>
                 );
               }}
             />
@@ -194,7 +233,7 @@ function AddReview() {
               render={({ message }) => {
                 return (
                   <p className="text-red-500 text-sm ">
-                    &#x1F6C8;
+                    
                     {message}
                   </p>
                 );
@@ -231,7 +270,7 @@ function AddReview() {
               render={({ message }) => {
                 return (
                   <p className="text-red-500 text-sm ">
-                    &#x1F6C8;
+                    
                     {message}
                   </p>
                 );
@@ -268,7 +307,7 @@ function AddReview() {
               render={({ message }) => {
                 return (
                   <p className="text-red-500 text-sm ">
-                    &#x1F6C8;
+                    
                     {message}
                   </p>
                 );
@@ -297,7 +336,7 @@ function AddReview() {
               render={({ message }) => {
                 return (
                   <p className="text-red-500 text-sm ">
-                    &#x1F6C8;
+                    
                     {message}
                   </p>
                 );
@@ -305,17 +344,32 @@ function AddReview() {
             />
           </div>
           {/*  image upload */}
-
           <input
             type="file"
-            accept="image/*"
+            id="rentalImage"
+            name="rentalImage"
+            accept="image/jpg,image/jpeg,image/png"
             className="outline-none w-full tracking-wide rounded-md font-semibold border-2 text-[#0a0a0a] mb-2 bg-gray-300 px-2 py-2 border-theme focus:ring-gray-100 focus:ring-1"
             capture="environment"
+            onChange={(e)=>{
+              setAddReviewState({...addReviewState,rentalImages:e.target.files?.[0]})              
+            }}
           />
+
           {/* submit */}
           <SubmitButton loading={loading} />
         </form>
       </div>
+      <Snackbar
+        open={open}
+        autoHideDuration={2500}
+        onClose={hideSnackBar}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+      >
+        <Alert severity="success" variant="filled" onClose={()=>{setOpen(false)}} sx={{ width: "100%" }}>
+          Review added successfully
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

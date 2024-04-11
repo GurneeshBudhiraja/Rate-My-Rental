@@ -1,9 +1,11 @@
 import React from "react";
+import { storage } from "../../Appwrite/Services/services";
 
 function ReviewCard({
-  image = null,
+  isImage = false,
+  fileId,
   neighbourhood,
-  ammenities,
+  amenities,
   owner,
   address = null,
   dateOfReview = null,
@@ -12,24 +14,38 @@ function ReviewCard({
   trash = false,
   onClick = null,
 }) {
+  const [image, setImage] = React.useState(null);
+  React.useEffect(() => {
+    try {
+      if (!isImage) {
+        return;
+      } else {
+        const imageResponse = storage.getFilePreview({ fileId });
+        setImage(imageResponse["href"]);
+      }
+    } catch (error) {
+      isImage = false;
+    }
+  }, []);
+
   return (
     <div
       className={`flex border rounded-md border-theme ${
-        trash ? "pb-8 p-2" : "p-2"
+        trash || dateOfReview ? "pb-8 p-2" : "p-2"
       } gap-2 items-center bg-[#0a0a0a] relative`}
     >
       <div className="border-2 border-theme rounded-lg mx-1 min-w-20 w-20 h-full">
-        {image ? (
+        {isImage ? (
           <img
             src={image}
-            alt="rental image will come here"
+            alt="Rental image will come here"
             className="min-w-20 min-h-20 w-20 h-20 p-2"
           />
         ) : (
           <img
             src=""
             alt="Image Not Provided"
-            className="min-w-20 min-h-20 w-20 h-20 p-2 text-sm text-theme font-semibold"
+            className="min-w-20 min-h-20 w-20 h-20 text-sm text-theme font-semibold"
           />
         )}
       </div>
@@ -42,7 +58,7 @@ function ReviewCard({
         )}
         <p className="">
           <span className="text-theme font-bold tracking-wide">Rent:</span>{" "}
-          {rent}
+          {rent > 0 ? rent : "Not Provided"}
         </p>
         <p className="">
           <span className="text-theme font-bold tracking-wide">
@@ -52,7 +68,7 @@ function ReviewCard({
         </p>
         <p className="">
           <span className="text-theme font-bold tracking-wide">Amenities:</span>{" "}
-          {ammenities}
+          {amenities}
         </p>
         <p className="">
           <span className="text-theme font-bold tracking-wide">Owner:</span>{" "}
@@ -60,9 +76,9 @@ function ReviewCard({
         </p>
         <p className="">
           <span className="text-theme font-bold tracking-wide">Comments:</span>{" "}
-          {comments?comments:"Not Provided"}
+          {comments ? comments : "Not Provided"}
         </p>
-        
+
         {trash && (
           <div className="absolute right-3 bottom-1" onClick={onClick}>
             <i className="fa-solid fa-trash-alt text-gray-300 cursor-pointer"></i>

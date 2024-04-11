@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { review } from "../Appwrite/Services/services.js";
+import { review, storage } from "../Appwrite/Services/services.js";
 import { Query } from "appwrite";
 import notFound from "../assets/notFound.svg";
 import Skeleton from "@mui/material/Skeleton";
@@ -17,6 +17,7 @@ function MyReviews() {
   const [error, setError] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [reviewArray, setReviewArray] = React.useState([]);
+
   useEffect(() => {
     if (!user.isAuthenticated) {
       navigate("/login");
@@ -34,31 +35,36 @@ function MyReviews() {
         const { documents } = await review.getReviews(queryArray);
         setReviewArray(documents);
       } catch (error) {
-        setError(`Delete failed: ${error.message}`);
+        setError(`An error occurred. Please try again later.`);
       } finally {
         setLoading(false);
       }
     };
     fetchMyReviews();
     return () => {
+      setError(null);
       setReviewArray([]);
     };
   }, []);
 
   // delete review function
-  const deleteReview = async (documentId) => {
+  const deleteReview = async (selectedReview) => {
     try {
       setError(null);
       setLoading(true);
+      // delete the review from the database
+      await review.deleteReview(selectedReview["$id"]);
+      // delete the image from the storage
+      if(selectedReview.isImage){
+        await storage.deleteFile(selectedReview["$id"]);
+      }
       // remove the review from the state
       setReviewArray((state) =>
-      state.filter((eachReview) => eachReview["$id"] !== documentId)
-    );
-    // delete the review from the database
-      await review.deleteReview(documentId);
+        state.filter((eachReview) => eachReview["$id"] !== selectedReview["$id"])
+      );
+      
       setOpen(true);
     } catch (error) {
-      console.log(error.message);
       setError("An error occurred. Please try again later.");
     } finally {
       setLoading(false);
@@ -109,15 +115,18 @@ function MyReviews() {
           {reviewArray.length > 0 ? (
             reviewArray.map((eachReview) => (
               <ReviewCard
+                fileId={eachReview["$id"]}
                 neighbourhood={eachReview.neighbourhood}
                 address={eachReview.address}
+                rent={eachReview.rent}
                 dateOfReview={eachReview["$createdAt"]}
                 key={eachReview["$id"]}
-                ammenities={eachReview.ammenities}
+                amenities={eachReview.amenities}
                 owner={eachReview.owner}
                 comments={eachReview.comments}
                 trash={true}
-                onClick={() => deleteReview(eachReview["$id"])}
+                isImage={eachReview.isImage}
+                onClick={() => deleteReview(eachReview)}
               />
             ))
           ) : (
@@ -134,7 +143,14 @@ function MyReviews() {
         onClose={hideSnackBar}
         anchorOrigin={{ vertical: "top", horizontal: "right" }}
       >
-        <Alert severity="success" variant="filled" onClose={()=>{setOpen(false)}} sx={{ width: "100%" }}>
+        <Alert
+          severity="success"
+          variant="filled"
+          onClose={() => {
+            setOpen(false);
+          }}
+          sx={{ width: "100%" }}
+        >
           Review deleted successfully!
         </Alert>
       </Snackbar>

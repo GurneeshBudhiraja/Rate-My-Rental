@@ -1,23 +1,26 @@
-import { Client, Storage,Query,ID } from "appwrite";
+import { Client, Storage, Query } from "appwrite";
 import keys from "../../keys/keys";
-class Bucket{
-  client=new Client();
+class Bucket {
+  client = new Client();
   storage;
-  constructor(){
-    this.storage=new Storage(this.client);
+  constructor() {
     this.client
-    .setEndpoint(keys.appwriteEndpoint)
-    .setEndpoint(keys.appwriteProjectId);
+      .setEndpoint(keys.appwriteEndpoint) // Your API Endpoint
+      .setProject(keys.appwriteProjectId); // Your project ID
+    this.storage = new Storage(this.client);
   }
 
-  addFile({id=ID.unique(),file}){
-    return this.storage.createFile(keys.appwriteBucketId,id,file)
+  addFile({ id, file }) {
+    console.log(file);
+    return this.storage.createFile(keys.appwriteBucketId, id, file);
   }
-  
-}
-
-
-
+    getFilePreview({fileId, width = 500, height = 500}){
+      return this.storage.getFilePreview(keys.appwriteBucketId,fileId,height,width);
+    }
+    deleteFile(fileId){
+      return this.storage.deleteFile(keys.appwriteBucketId,fileId);
+    }
+  }
 
 const storage = new Bucket();
-export default storage
+export default storage;

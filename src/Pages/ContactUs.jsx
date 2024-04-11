@@ -67,7 +67,7 @@ function ContactUs() {
                 maxLength: 20,
                 pattern: /^[a-zA-Z\s]{1,20}$/,
               }}
-              className="outline-none border-2 border-[#0a0a0a] bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc]"
+              className="focus:ring-2 focus:ring-gray-200 outline-none border-2 border-[#0a0a0a] bg-gray-100 w-full p-2 rounded-md focus:border-[#396dfc]"
               name="name"
             />
             <Input

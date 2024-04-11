@@ -3,7 +3,7 @@ import { review } from "../Appwrite/Services/services.js";
 import { useSelector } from "react-redux";
 import keys from "../keys/keys.js";
 import { useNavigate } from "react-router-dom";
-import { ReviewCard } from "../Components/components.js";
+import { Button, ReviewCard } from "../Components/components.js";
 import { ID, Query } from "appwrite";
 import notFound from "../assets/notFound.svg";
 import Skeleton from "@mui/material/Skeleton";
@@ -33,7 +33,6 @@ function ShowReviews() {
           res.documents.length > 0 &&
           Object.keys(res.documents[0]).length > 0
         ) {
-          
           setReviewArray(res.documents);
         }
       } catch (error) {
@@ -88,17 +87,31 @@ function ShowReviews() {
           {reviewArray.length > 0 ? (
             reviewArray.map((eachReview) => (
               <ReviewCard
-              neighbourhood={eachReview.neighbourhood}
-              key={eachReview["$id"]}
-                ammenities={eachReview.ammenities}
+                fileId={eachReview["$id"]}
+                isImage={eachReview.isImage}
+                neighbourhood={eachReview.neighbourhood}
+                dateOfReview={eachReview["$createdAt"]}
+                key={eachReview["$id"]}
+                amenities={eachReview.amenities}
                 owner={eachReview.owner}
                 comments={eachReview.comments}
               />
             ))
           ) : (
-            <div className="mx-auto absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 space-y-3 ">
-              <img src={notFound} alt="not found" />
-              <p className="text-nowrap">No reviews found for this address</p>
+            <div className="mx-auto flex flex-col items-center justify-center mt-5 md:absolute md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 ">
+              <img
+                src={notFound}
+                alt="not found"
+                className="max-w-40 max-h-40 w-auto h-auto "
+              />
+              <p className="text-nowrap text-lg ">
+                No reviews found for this address
+              </p>
+              <Button
+                children={"No reviews? Add yours"}
+                className="mt-2 bg-theme px-2 cursor-pointer rounded-lg py-2 font-medium tracking-wider whitespace-break-spaces text-center "
+                onClick={() => navigate("/addreview")}
+              />
             </div>
           )}
         </div>

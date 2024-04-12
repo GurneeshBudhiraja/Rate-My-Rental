@@ -12,7 +12,7 @@ import {
   setSearchAddress,
   clearSearchAddress,
 } from "../Store/AddressSlice/AddressSlice";
-import { Link, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 function Home() {
   const navigate = useNavigate();
@@ -136,15 +136,15 @@ function Home() {
               {/* Button Component */}
               <Button
                 children="Search for Review"
-                classProps="bg-gray-950/70 text-center text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
+                classProps="bg-gray-950/70 text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
                 onClick={addStoreAdress}
               />
-              <Link to={"addreview"}>
+              <NavLink to={"addreview"}>
                 <Button
                   children="Add a Review"
-                  classProps="bg-gray-950/70 focus:outline-none text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
+                  classProps="bg-gray-950/70 text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
                 />
-              </Link>
+              </NavLink>
             </div>
           </div>
         </div>

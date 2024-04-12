@@ -172,7 +172,7 @@ function ShowReviews() {
       </div>
       {open && (
         <div
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[345px] max-h-[40%] md:max-h-[50%] lg:max-h-[75%] overflow-auto`}
+          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-[80%] max-h-[35%] md:max-h-[50%] lg:max-h-[75%] overflow-auto`}
         >
           <Card
             sx={{

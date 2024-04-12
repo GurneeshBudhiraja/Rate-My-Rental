@@ -14,10 +14,10 @@ function ExpandedReview({
   ];
 
   return (
-    <div className='text-gray-100 capitalize '>
+    <div className='text-gray-100 capitalize'>
       {
         reviewData.map((eachData) => (
-          <p key={eachData.key} className='my-1'>
+          <p key={eachData.key} className='my-1 '>
             <span className='font-bold text-theme'>{eachData.label}:</span>{" "}
             {expandedReview[eachData.key] ? expandedReview[eachData.key] : 'Not Provided'}
           </p>

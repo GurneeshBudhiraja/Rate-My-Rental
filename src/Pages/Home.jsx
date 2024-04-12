@@ -67,10 +67,10 @@ function Home() {
   };
 
   return (
-    <div className="bg-black">
+    <div className="bg-[#0a0a0]">
       <div className='bg-[url("./pictures/bg-house.webp")] h-[75vh] overflow-x-scroll bg-cover bg-repeat bg-center tracking-wider flex justify-center items-center brightness-90 '>
-        <div className="flex flex-col justify-center items-center px-4 h-fit bg-black/45  backdrop-blur-lg py-5 backdrop-brightness-105 rounded-xl ">
-          <div className="flex flex-col items-center gap-5 max-w-prose mx-auto">
+        <div className="flex flex-col justify-center items-center px-4 h-fit bg-black/45  backdrop-blur-lg py-5 backdrop-brightness-105 rounded-xl max-w-prose mx-auto lg:w-full md:w-full  ">
+          <div className="flex flex-col items-center justify-center gap-5 max-w-prose mx-auto  md:w-[80%]">
             <h4 className="font-bold text-4xl text-black">
               Rate My <span className="font-semibold text-white">Rental</span>
             </h4>
@@ -102,7 +102,6 @@ function Home() {
                         onFocus: () => setHasSuggestions(true),
                       })}
                     />
-
                     <div className="absolute left-0 w-full z-10">
                       {hasSuggestions && suggestions.length > 0 && (
                         <div className=" border border-gray-300 rounded-md shadow-md mt-2 overflow-auto h-[25vh] bg-[#000] ">
@@ -114,7 +113,6 @@ function Home() {
                               color: "white",
                               border: "1px solid #4071d0",
                             };
-
                             return (
                               <div
                                 {...getSuggestionItemProps(suggestion, {
@@ -156,7 +154,7 @@ function Home() {
       <div className="w-full flex justify-center mt-1" onClick={top}>
         <Button
           children={<i class="fa-solid fa-angle-up"></i>}
-          className="animate-bounce delay-1000 drop-shadow-sm bg-white/75 rounded-full w-fit text-center py-1 px-2"
+          className="animate-bounce delay-1000 cursor-pointer drop-shadow-sm bg-white/75 rounded-full w-fit text-center py-1 px-2"
         />
       </div>
       <hr className="border-[#3771d2] border my-4" />

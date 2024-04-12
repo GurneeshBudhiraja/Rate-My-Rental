@@ -138,23 +138,7 @@ function MyReviews() {
           )}
         </div>
       )}
-      <Snackbar
-        open={open}
-        autoHideDuration={2500}
-        onClose={hideSnackBar}
-        anchorOrigin={{ vertical: "top", horizontal: "right" }}
-      >
-        <Alert
-          severity="success"
-          variant="filled"
-          onClose={() => {
-            setOpen(false);
-          }}
-          sx={{ width: "100%" }}
-        >
-          Review deleted successfully!
-        </Alert>
-      </Snackbar>
+      
     </div>
   );
 }

@@ -100,12 +100,12 @@ function AddReview() {
   
 
   return (
-    <div className="flex flex-col min-h-screen  text-white mx-auto max-w-prose mt-4 gap-4 p-4 bg-[#0a0a0a] ">
+    <div className="flex flex-col min-h-screen items-center text-white mx-auto max-w-prose mt-4 gap-4 p-4 bg-[#0a0a0a] ">
       <h1 className="text-center font-bold text-2xl ">Add Review</h1>
       {submissionError && (
         <p className="text-rose-600 text-center font-semibold my-2" >{submissionError}</p>
       )}
-      <div className="flex flex-col w-full ">
+      <div className="flex flex-col w-full justify-center">
         <PlacesAutocomplete
           value={addressValue}
           onChange={setAddressValue}

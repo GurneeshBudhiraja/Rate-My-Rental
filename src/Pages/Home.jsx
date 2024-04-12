@@ -136,13 +136,13 @@ function Home() {
               {/* Button Component */}
               <Button
                 children="Search for Review"
-                className="bg-gray-950/70 text-center text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
+                classProps="bg-gray-950/70 text-center text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
                 onClick={addStoreAdress}
               />
               <Link to={"addreview"}>
                 <Button
                   children="Add a Review"
-                  className="bg-gray-950/70 focus:outline-none text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
+                  classProps="bg-gray-950/70 focus:outline-none text-gray-50 tracking-wider border border-gray-50 px-2 py-2 rounded-md w-full cursor-pointer hover:shadow-inner   transition-all duration-300  hover:shadow-gray-200 "
                 />
               </Link>
             </div>
@@ -154,7 +154,7 @@ function Home() {
       <div className="w-full flex justify-center mt-1" onClick={top}>
         <Button
           children={<i class="fa-solid fa-angle-up"></i>}
-          className="animate-bounce delay-1000 cursor-pointer drop-shadow-sm bg-white/75 rounded-full w-fit text-center py-1 px-2"
+          classProps="animate-bounce delay-1000 cursor-pointer drop-shadow-sm bg-white/75 rounded-full w-fit text-center py-1 px-2"
         />
       </div>
       <hr className="border-[#3771d2] border my-4" />

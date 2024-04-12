@@ -162,7 +162,7 @@ function ShowReviews() {
 
                 <Button
                   children={"No reviews? Add yours"}
-                  className="mt-2 bg-theme px-2 cursor-pointer rounded-lg py-2 font-medium tracking-wider whitespace-break-spaces text-center "
+                  classProps="mt-2 bg-theme px-2 cursor-pointer rounded-lg py-2 font-medium tracking-wider whitespace-break-spaces text-center "
                   onClick={() => navigate("/addreview")}
                 />
               </div>

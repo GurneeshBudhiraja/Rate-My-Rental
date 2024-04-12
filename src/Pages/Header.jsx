@@ -1,8 +1,5 @@
 import React, { useId, useState, useEffect } from "react";
 import {
-  Login,
-  Signup,
-  Logout,
   Logo,
   Button,
   Hamburger,
@@ -83,7 +80,7 @@ function Header() {
                 <Link to={option.link}>
                   <Button
                     children={option.name}
-                    className="font-semibold tracking-wide hover:text-gray-300 transition-all duration-300"
+                    classProps="font-semibold tracking-wide hover:text-gray-300 transition-all duration-300"
                     onClick={
                       option.action &&
                       (async () => {

@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
-import { Fade as HamburgerIcon } from "hamburger-react";
+
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { logoutUser } from "../../Store/AuthSlice/AuthSlice";
 import { auth } from "../../Appwrite/Services/services";
 
 function Hamburger() {
-  const [isOpen, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
   const loggedIn = useSelector((state) => state.auth.isAuthenticated);
   const [scroll, setScroll] = React.useState(false);
   const dispatch = useDispatch();
@@ -20,6 +20,9 @@ function Hamburger() {
       window.removeEventListener("scroll", window);
     };
   }, []);
+  const handleMenu = () => {
+    setOpen((prev)=>!prev);
+  }
   const options = [
     {
       name: "Sign Up",
@@ -62,15 +65,10 @@ function Hamburger() {
 
   return (
     <div className="lg:hidden">
-      <HamburgerIcon
-        toggled={isOpen}
-        toggle={setOpen}
-        size={18}
-        duration={0.4}
-        rounded
-        color={isOpen ? "#3287ffd2" : "white"}
-      />
-      {isOpen && (
+      <div className="mr-4" onClick={handleMenu}>
+        {open?(<i class="fa-solid fa-xmark" style={{ color: "white" }}></i>):(<i class="fa-solid fa-bars" style={{ color: "white" }}></i>)}
+      </div>
+      {open && (
         <div
           className={`text-white fixed left-0 shadow-4xl right-0 top-[3.5rem] p-5 pt-0 border-t-2 border-[#3287ffd2] bg-neutral-950 border-b min-h-[25%]`}
         >
@@ -95,10 +93,10 @@ function Hamburger() {
                               dispatch(logoutUser());
                             } catch (error) {
                               console.log(error.message);
-                            } finally{
+                            } finally {
                               setTimeout(() => {
                                 navigate("/");
-                              },1000)
+                              }, 1000);
                             }
                           })
                         }

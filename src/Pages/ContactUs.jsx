@@ -131,9 +131,9 @@ function ContactUs() {
             </label>
             <textarea
               className="outline-none w-full tracking-wide rounded-md font-semibold border-2 text-[#0a0a0a] bg-gray-300 px-2 py-2 border-theme focus:ring-gray-100 focus:ring-2"
-              name="commentArea"
-              id="commentArea"
-              {...register("commentArea", {
+              name="comment"
+              id="comment"
+              {...register("comment", {
                 required: false,
                 maxLength: {
                   value: 300,
@@ -143,7 +143,7 @@ function ContactUs() {
             />
             <ErrorMessage
               errors={errors}
-              name="commentArea"
+              name="comment"
               render={({ message }) => {
                 return (
                   <p className="text-red-500 text-sm ">{message}</p>

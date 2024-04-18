@@ -5,6 +5,7 @@ const keys = {
   appwriteCollectionId:String(import.meta.env.VITE_APPWRITE_COLLECTION_ID),
   appwriteBucketId:String(import.meta.env.VITE_APPWRITE_BUCKET_ID),
   appwriteContactCollectionId:String(import.meta.env.VITE_APPWRITE_CONTACT_COLLECTION_ID),
+  mapboxAPI:String(import.meta.env.VITE_MAPBOX_KEY),
 };
 
 export default keys;

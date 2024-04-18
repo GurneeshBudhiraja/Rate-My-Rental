@@ -4,7 +4,6 @@ import HomeMission from "./HomeMission";
 import PlacesAutocomplete, {
   geocodeByAddress,
 } from "react-places-autocomplete";
-
 import { auth } from "../Appwrite/Services/services";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser, logoutUser } from "../Store/AuthSlice/AuthSlice";

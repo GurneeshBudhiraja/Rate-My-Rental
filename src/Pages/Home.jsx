@@ -1,4 +1,6 @@
 import React from "react";
+import { Analytics } from "@vercel/analytics/react"
+import { SpeedInsights } from "@vercel/speed-insights/react"
 import { Button } from "../Components/components";
 import HomeMission from "./HomeMission";
 import PlacesAutocomplete, {
@@ -67,6 +69,8 @@ function Home() {
 
   return (
     <div className="bg-[#0a0a0]">
+      <Analytics />
+      <SpeedInsights/> 
       <div className='bg-[url("./pictures/bg-house.webp")] h-[75vh] overflow-x-scroll bg-cover bg-repeat bg-center tracking-wider flex justify-center items-center brightness-90 '>
         <div className="flex flex-col justify-center items-center px-4 h-fit bg-black/45  backdrop-blur-lg py-5 backdrop-brightness-105 rounded-xl max-w-prose mx-auto lg:w-full md:w-full  ">
           <div className="flex flex-col items-center justify-center gap-5 max-w-prose mx-auto  md:w-[80%]">

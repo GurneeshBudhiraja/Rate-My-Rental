@@ -18,9 +18,8 @@ RateMyRental is a web application designed for tenants to share and explore revi
 - **Other Tools**: Google Maps for address autocomplete functionality.
 
 ## Live Links and Social Media
-
-- **Live Demo**: [Link to Live Demo](https://ratemyrental.vercel.app/)
-- **GitHub Repository**: [RateMyRental GitHub Repo](https://github.com/GurneeshBudhiraja/RateMyRental-Review-Site-React)
+- **Live Demo**: <a href="https://ratemyrental.vercel.app/" target="_blank">Link to Live Demo</a>
+- **GitHub Repository**: <a href="https://github.com/GurneeshBudhiraja/RateMyRental-Review-Site-React" target="_blank">RateMyRental GitHub Repo</a>
 
 ## Contributing
 We welcome contributions to improve RateMyRental! If you have ideas for new features, bug fixes, or enhancements, please submit a pull request.

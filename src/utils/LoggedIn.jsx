@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { setUser, logoutUser } from "../Store/AuthSlice/AuthSlice.js";
 import { auth } from "../Appwrite/Services/services.js";
 function LoggedIn() {
-  const [authenticated, setAuthenticated] = React.useState(null);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = React.useState(true);
